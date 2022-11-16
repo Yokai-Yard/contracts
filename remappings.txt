@@ -1,5 +1,5 @@
 @chainlink=lib/chainlink/
-@juicebox=contracts/
+@snowConeDao=contracts/
 @openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
 @paulrberg/contracts/math/=lib/prb-math/contracts/
 chainlink/=lib/chainlink/
