@@ -1,0 +1,70 @@
+import { expect } from 'chai';
+import { ethers } from 'hardhat';
+
+import { deployMockContract } from '@ethereum-waffle/mock-contract';
+import { packFundingCycleMetadata } from '../helpers/utils';
+
+import snowFundingCycleStore from '../../artifacts/contracts/SNOWFundingCycleStore.sol/SNOWFundingCycleStore.json';
+import snowOperatoreStore from '../../artifacts/contracts/SNOWOperatorStore.sol/SNOWOperatorStore.json';
+import snowProjects from '../../artifacts/contracts/SNOWProjects.sol/SNOWProjects.json';
+import snowTerminal from '../../artifacts/contracts/abstract/SNOWPayoutRedemptionPaymentTerminal.sol/SNOWPayoutRedemptionPaymentTerminal.json';
+
+describe('SNOWDirectory::terminalsOf(...)', function () {
+  const PROJECT_ID = 13;
+
+  async function setup() {
+    let [deployer, projectOwner, ...addrs] = await ethers.getSigners();
+
+    const blockNum = await ethers.provider.getBlockNumber();
+    const block = await ethers.provider.getBlock(blockNum);
+    const timestamp = block.timestamp;
+
+    let mockJbFundingCycleStore = await deployMockContract(deployer, snowFundingCycleStore.abi);
+    let mockJbOperatorStore = await deployMockContract(deployer, snowOperatoreStore.abi);
+    let mockJbProjects = await deployMockContract(deployer, snowProjects.abi);
+
+    let snowDirectoryFactory = await ethers.getContractFactory('SNOWDirectory');
+    let snowDirectory = await snowDirectoryFactory.deploy(
+      mockJbOperatorStore.address,
+      mockJbProjects.address,
+      mockJbFundingCycleStore.address,
+      deployer.address,
+    );
+
+    let terminal1 = await deployMockContract(projectOwner, snowTerminal.abi);
+    let terminal2 = await deployMockContract(projectOwner, snowTerminal.abi);
+
+    await mockJbProjects.mock.ownerOf.withArgs(PROJECT_ID).returns(projectOwner.address);
+
+    await mockJbFundingCycleStore.mock.currentOf.withArgs(PROJECT_ID).returns({
+      number: 1,
+      configuration: timestamp,
+      basedOn: timestamp,
+      start: timestamp,
+      duration: 0,
+      weight: 0,
+      discountRate: 0,
+      ballot: ethers.constants.AddressZero,
+      metadata: packFundingCycleMetadata({ global: { allowSetTerminals: true } }),
+    });
+
+    // Add a few terminals
+    await snowDirectory
+      .connect(projectOwner)
+      .setTerminalsOf(PROJECT_ID, [terminal1.address, terminal2.address]);
+
+    return { projectOwner, deployer, addrs, snowDirectory, terminal1, terminal2 };
+  }
+
+  it('Should return terminals belonging to the project', async function () {
+    const { projectOwner, snowDirectory, terminal1, terminal2 } = await setup();
+
+    let terminals = [...(await snowDirectory.connect(projectOwner).terminalsOf(PROJECT_ID))];
+    terminals.sort();
+
+    let expectedTerminals = [terminal1.address, terminal2.address];
+    expectedTerminals.sort();
+
+    expect(terminals).to.eql(expectedTerminals);
+  });
+});
