@@ -1,11 +1,11 @@
 {
-  "name": "@snowx-protocol/contracts-v2",
+  "name": "@snowcone/contracts",
   "bugs": {
-    "url": "https://github.com/snowx-protocol/juice-contracts-v2/issues"
+    "url": "https://github.com/sirbenchalot757/Snowcone-icy-contracts/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/snowx-protocol/juice-contracts-v2"
+    "url": "https://github.com/sirbenchalot757/Snowcone-icy-contracts"
   },
   "version": "8.0.3",
   "license": "MIT",
