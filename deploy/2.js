@@ -24,15 +24,7 @@ module.exports = async ({ deployments, getChainId }) => {
   console.log({ deployer: deployer.address, chain: chainId });
 
   switch (chainId) {
-    // mainnet
-    case '1':
-      multisigAddress = '0xAF28bcB48C40dBC86f52D459A6562F658fc94B1e';
-      break;
-    // rinkeby
-    case '4':
-      multisigAddress = '0xAF28bcB48C40dBC86f52D459A6562F658fc94B1e';
-      break;
-    // hardhat / localhost
+
     case '31337':
       multisigAddress = deployer.address;
       break;

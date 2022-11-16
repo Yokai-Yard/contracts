@@ -26,19 +26,6 @@ module.exports = async ({ deployments, getChainId }) => {
   console.log({ deployer: deployer.address, chain: chainId });
 
   switch (chainId) {
-    // mainnet
-    case '1':
-      multisigAddress = '0xAF28bcB48C40dBC86f52D459A6562F658fc94B1e';
-      chainlinkV2UsdEthPriceFeed = '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419';
-      protocolProjectStartsAtOrAfter = 1651951173;
-      break;
-    // rinkeby
-    case '4':
-      multisigAddress = '0xAF28bcB48C40dBC86f52D459A6562F658fc94B1e';
-      chainlinkV2UsdEthPriceFeed = '0x8A753747A1Fa494EC906cE90E9f37563A8AF630e';
-      protocolProjectStartsAtOrAfter = 0;
-      break;
-    // hardhat / localhost
     case '31337':
       multisigAddress = deployer.address;
       protocolProjectStartsAtOrAfter = 0;

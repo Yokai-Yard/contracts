@@ -2,8 +2,7 @@
 *
 
 # Allowlisted deployment networks.
-!/deployments/rinkeby/**
-!/deployments/mainnet/**
+!/deployments/fuji/**
 
 # Allow everything in /contracts ...
 !/contracts/**
