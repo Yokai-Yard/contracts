@@ -29,7 +29,7 @@ describe('SNOWETHERC20ProjectPayer::addToBalanceOf(...)', function () {
     let snowTokensFactory = await ethers.getContractFactory('SNOWTokens');
     let snowTokens = await snowTokensFactory.deploy();
 
-    ethToken = await snowTokens.ETH();
+    ethToken = await snowTokens.AVAX();
   });
 
   async function setup() {

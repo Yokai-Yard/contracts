@@ -66,11 +66,11 @@ contract TestAllowance is TestBaseWorkflow {
     _fundAccessConstraints.push(
       SNOWFundAccessConstraints({
         terminal: terminal,
-        token: snowLibraries().ETHToken(),
+        token: snowLibraries().AVAXToken(),
         distributionLimit: 10 ether,
         overflowAllowance: 5 ether,
-        distributionLimitCurrency: snowLibraries().ETH(),
-        overflowAllowanceCurrency: snowLibraries().ETH()
+        distributionLimitCurrency: snowLibraries().AVAX(),
+        overflowAllowanceCurrency: snowLibraries().AVAX()
       })
     );
 
@@ -95,13 +95,13 @@ contract TestAllowance is TestBaseWorkflow {
       false,
       'Forge test',
       new bytes(0)
-    ); // funding target met and 10 ETH are now in the overflow
+    ); // funding target met and 10 AVAX are now in the overflow
 
     // verify: beneficiary should have a balance of SNOWTokens (divided by 2 -> reserved rate = 50%)
     uint256 _userTokenBalance = PRBMath.mulDiv(20 ether, (WEIGHT / 10**18), 2);
     assertEq(_tokenStore.balanceOf(_beneficiary, projectId), _userTokenBalance);
 
-    // verify: ETH balance in terminal should be up to date
+    // verify: AVAX balance in terminal should be up to date
     assertEq(snowPaymentTerminalStore().balanceOf(terminal, projectId), 20 ether);
 
     // Discretionary use of overflow allowance by project owner (allowance = 5ETH)
@@ -120,7 +120,7 @@ contract TestAllowance is TestBaseWorkflow {
       PRBMath.mulDiv(5 ether, snowLibraries().MAX_FEE(), snowLibraries().MAX_FEE() + terminal.fee())
     );
 
-    // Distribute the funding target ETH -> splits[] is empty -> everything in left-over, to project owner
+    // Distribute the funding target AVAX -> splits[] is empty -> everything in left-over, to project owner
     evm.prank(_projectOwner);
     terminal.distributePayoutsOf(
       projectId,
@@ -165,14 +165,14 @@ contract TestAllowance is TestBaseWorkflow {
       evm.assume(ALLOWANCE + TARGET >= ALLOWANCE && ALLOWANCE + TARGET >= TARGET);
     }
 
-    uint256 CURRENCY = snowLibraries().ETH(); // Avoid testing revert on this call...
+    uint256 CURRENCY = snowLibraries().AVAX(); // Avoid testing revert on this call...
 
     SNOWETHPaymentTerminal terminal = snowETHPaymentTerminal();
 
     _fundAccessConstraints.push(
       SNOWFundAccessConstraints({
         terminal: terminal,
-        token: snowLibraries().ETHToken(),
+        token: snowLibraries().AVAXToken(),
         distributionLimit: TARGET,
         distributionLimitCurrency: CURRENCY,
         overflowAllowance: ALLOWANCE,
@@ -207,7 +207,7 @@ contract TestAllowance is TestBaseWorkflow {
     uint256 _userTokenBalance = PRBMath.mulDiv(BALANCE, (WEIGHT / 10**18), 2);
     if (BALANCE != 0) assertEq(_tokenStore.balanceOf(_beneficiary, projectId), _userTokenBalance);
 
-    // verify: ETH balance in terminal should be up to date
+    // verify: AVAX balance in terminal should be up to date
     assertEq(snowPaymentTerminalStore().balanceOf(terminal, projectId), BALANCE);
 
     evm.startPrank(_projectOwner);

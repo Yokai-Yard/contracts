@@ -155,8 +155,8 @@ module.exports = async ({ deployments, getChainId }) => {
   const snowDirectoryContract = new ethers.Contract(SNOWDirectory.address, SNOWDirectory.abi);
   const snowCurrenciesLibrary = new ethers.Contract(SNOWCurrencies.address, SNOWCurrencies.abi);
 
-  // Get a reference to USD and ETH currency indexes.
-  const ETH = await snowCurrenciesLibrary.connect(deployer).ETH();
+  // Get a reference to USD and AVAX currency indexes.
+  const AVAX = await snowCurrenciesLibrary.connect(deployer).AVAX();
 
   // Deploy a SNOWETHPaymentTerminal contract.
   await deploy('SNOWETHPaymentTerminal', {
@@ -164,7 +164,7 @@ module.exports = async ({ deployments, getChainId }) => {
     skipIfAlreadyDeployed: false,
     contract: "contracts/SNOWETHPaymentTerminal.sol:SNOWETHPaymentTerminal",
     args: [
-      ETH,
+      AVAX,
       SNOWOperatorStore.address,
       SNOWProjects.address,
       SNOWDirectory.address,

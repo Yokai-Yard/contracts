@@ -54,11 +54,11 @@ describe('SNOWPayoutRedemptionPaymentTerminal::migrate(...)', function () {
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    const CURRENCY_ETH = await snowCurrencies.ETH();
+    const CURRENCY_AVAX = await snowCurrencies.AVAX();
 
     const snowTokensFactory = await ethers.getContractFactory('SNOWTokens');
     const snowTokens = await snowTokensFactory.deploy();
-    const TOKEN_ETH = await snowTokens.ETH();
+    const TOKEN_AVAX = await snowTokens.AVAX();
     const NON_ETH_TOKEN = mockJbToken.address;
 
     const SPLITS_GROUP = 1;
@@ -124,7 +124,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::migrate(...)', function () {
       .withArgs(NON_ETH_TOKEN, PROJECT_ID)
       .returns(true);
 
-    // addToBalanceOf _amount is 0 if ETH terminal
+    // addToBalanceOf _amount is 0 if AVAX terminal
     await mockJbEthPaymentTerminal.mock.addToBalanceOf
       .withArgs(PROJECT_ID, CURRENT_TERMINAL_BALANCE, TOKEN_ETH, '', '0x')
       .returns();

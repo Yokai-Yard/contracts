@@ -104,8 +104,8 @@ contract SNOWProjects is SNOWOperatable, ERC721Votes, Ownable, ISNOWProjects {
     @param _operatorStore A contract storing operator assignments.
   */
   constructor(ISNOWOperatorStore _operatorStore)
-    ERC721('Juicebox Projects', 'JUICEBOX')
-    EIP712('Juicebox Projects', '1')
+    ERC721('SnowCone Projects', 'SNOWCONE')
+    EIP712('SnowCone Projects', '1')
     SNOWOperatable(_operatorStore)
   // solhint-disable-next-line no-empty-blocks
   {

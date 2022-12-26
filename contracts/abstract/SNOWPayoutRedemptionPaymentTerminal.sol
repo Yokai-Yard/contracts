@@ -193,7 +193,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
 
     @param _projectId The ID of the project to get overflow for.
 
-    @return The current amount of ETH overflow that project has in this terminal, as a fixed point number with 18 decimals.
+    @return The current amount of AVAX overflow that project has in this terminal, as a fixed point number with 18 decimals.
   */
   function currentEthOverflowOf(uint256 _projectId)
     external
@@ -212,12 +212,12 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
 
     // Return the amount converted to ETH.
     return
-      (currency == SNOWCurrencies.ETH)
+      (currency == SNOWCurrencies.AVAX)
         ? _adjustedOverflow
         : PRBMath.mulDiv(
           _adjustedOverflow,
           10**decimals,
-          prices.priceFor(currency, SNOWCurrencies.ETH, decimals)
+          prices.priceFor(currency, SNOWCurrencies.AVAX, decimals)
         );
   }
 
@@ -341,8 +341,8 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
   ) external payable virtual override isTerminalOf(_projectId) returns (uint256) {
     _token; // Prevents unused var compiler and natspec complaints.
 
-    // ETH shouldn't be sent if this terminal's token isn't ETH.
-    if (token != SNOWTokens.ETH) {
+    // AVAX shouldn't be sent if this terminal's token isn't ETH.
+    if (token != SNOWTokens.AVAX ) {
       if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
 
       // Transfer tokens to this terminal from the msg sender.
@@ -518,7 +518,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
       _beforeTransferTo(address(_to), balance);
 
       // If this terminal's token is ETH, send it in msg.value.
-      uint256 _payableValue = token == SNOWTokens.ETH ? balance : 0;
+      uint256 _payableValue = token == SNOWTokens.AVAX  ? balance : 0;
 
       // Withdraw the balance to transfer to the new terminal;
       _to.addToBalanceOf{value: _payableValue}(_projectId, balance, token, '', bytes(''));
@@ -532,7 +532,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
     Receives funds belonging to the specified project.
 
     @param _projectId The ID of the project to which the funds received belong.
-    @param _amount The amount of tokens to add, as a fixed point number with the same number of decimals as this terminal. If this is an ETH terminal, this is ignored and msg.value is used instead.
+    @param _amount The amount of tokens to add, as a fixed point number with the same number of decimals as this terminal. If this is an AVAX terminal, this is ignored and msg.value is used instead.
     @param _token The token being paid. This terminal ignores this property since it only manages one currency. 
     @param _memo A memo to pass along to the emitted event.
     @param _metadata Extra data to pass along to the emitted event.
@@ -547,7 +547,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
     _token; // Prevents unused var compiler and natspec complaints.
 
     // If this terminal's token isn't ETH, make sure no msg.value was sent, then transfer the tokens in from msg.sender.
-    if (token != SNOWTokens.ETH) {
+    if (token != SNOWTokens.AVAX ) {
       // Amount must be greater than 0.
       if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
 
@@ -1042,7 +1042,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
           _beforeTransferTo(address(_split.allocator), _netPayoutAmount);
 
           // If this terminal's token is ETH, send it in msg.value.
-          uint256 _payableValue = token == SNOWTokens.ETH ? _netPayoutAmount : 0;
+          uint256 _payableValue = token == SNOWTokens.AVAX  ? _netPayoutAmount : 0;
 
           // Create the data to send to the allocator.
           SNOWSplitAllocationData memory _data = SNOWSplitAllocationData(
@@ -1059,7 +1059,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
 
           // Otherwise, if a project is specified, make a payment to it.
         } else if (_split.projectId != 0) {
-          // Get a reference to the Juicebox terminal being used.
+          // Get a reference to the SnowCone terminal being used.
           ISNOWPaymentTerminal _terminal = directory.primaryTerminalOf(_split.projectId, token);
 
           // The project must have a terminal to send funds to.
@@ -1107,7 +1107,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
             _beforeTransferTo(address(_terminal), _netPayoutAmount);
 
             // If this terminal's token is ETH, send it in msg.value.
-            uint256 _payableValue = token == SNOWTokens.ETH ? _netPayoutAmount : 0;
+            uint256 _payableValue = token == SNOWTokens.AVAX  ? _netPayoutAmount : 0;
 
             // Send the projectId in the metadata.
             bytes memory _projectMetadata = new bytes(32);
@@ -1226,7 +1226,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
       _beforeTransferTo(address(_terminal), _amount);
 
       // If this terminal's token is ETH, send it in msg.value.
-      uint256 _payableValue = token == SNOWTokens.ETH ? _amount : 0;
+      uint256 _payableValue = token == SNOWTokens.AVAX  ? _amount : 0;
 
       // Send the payment.
       _terminal.pay{value: _payableValue}(
@@ -1346,7 +1346,7 @@ abstract contract SNOWPayoutRedemptionPaymentTerminal is
     Receives funds belonging to the specified project.
 
     @param _projectId The ID of the project to which the funds received belong.
-    @param _amount The amount of tokens to add, as a fixed point number with the same number of decimals as this terminal. If this is an ETH terminal, this is ignored and msg.value is used instead.
+    @param _amount The amount of tokens to add, as a fixed point number with the same number of decimals as this terminal. If this is an AVAX terminal, this is ignored and msg.value is used instead.
     @param _shouldRefundHeldFees A flag indicating if held fees should be refunded based on the amount being added.
     @param _memo A memo to pass along to the emitted event.
     @param _metadata Extra data to pass along to the emitted event.

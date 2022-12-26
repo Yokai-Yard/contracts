@@ -36,7 +36,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::addToBalanceOf(...)', function ()
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    CURRENCY_ETH = await snowCurrencies.ETH();
+    CURRENCY_AVAX = await snowCurrencies.AVAX();
 
     const snowConstantsFactory = await ethers.getContractFactory('SNOWConstants');
     const snowConstants = await snowConstantsFactory.deploy();

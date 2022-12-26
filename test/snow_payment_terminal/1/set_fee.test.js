@@ -35,7 +35,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::setFee(...)', function () {
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    const CURRENCY_ETH = await snowCurrencies.ETH();
+    const CURRENCY_AVAX = await snowCurrencies.AVAX();
 
     let snowTerminalFactory = await ethers.getContractFactory(
       'contracts/SNOWETHPaymentTerminal.sol:SNOWETHPaymentTerminal',

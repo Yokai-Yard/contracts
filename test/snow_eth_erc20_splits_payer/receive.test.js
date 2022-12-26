@@ -36,7 +36,7 @@ describe('SNOWETHERC20SplitsPayer::receive()', function () {
     let snowTokensFactory = await ethers.getContractFactory('SNOWTokens');
     let snowTokens = await snowTokensFactory.deploy();
 
-    ethToken = await snowTokens.ETH();
+    ethToken = await snowTokens.AVAX();
 
     let snowConstantsFactory = await ethers.getContractFactory('SNOWConstants');
     let snowConstants = await snowConstantsFactory.deploy();
@@ -91,7 +91,7 @@ describe('SNOWETHERC20SplitsPayer::receive()', function () {
     };
   }
 
-  it(`Should send ETH towards allocator if set in split`, async function () {
+  it(`Should send AVAX towards allocator if set in split`, async function () {
     const { deployer, caller, snowSplitsPayer, mockJbSplitsStore } = await setup();
 
     let mockJbAllocator = await deployMockContract(deployer, snowAllocator.abi);

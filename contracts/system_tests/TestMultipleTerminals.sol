@@ -83,7 +83,7 @@ contract TestMultipleTerminals is TestBaseWorkflow {
     ERC20terminal = new SNOWERC20PaymentTerminal(
       snowToken(),
       snowLibraries().USD(), // currency
-      snowLibraries().ETH(), // base weight currency
+      snowLibraries().AVAX(), // base weight currency
       1, // SNOWSplitsGroupe
       snowOperatorStore(),
       snowProjects(),
@@ -111,11 +111,11 @@ contract TestMultipleTerminals is TestBaseWorkflow {
     _fundAccessConstraints.push(
       SNOWFundAccessConstraints({
         terminal: ETHterminal,
-        token: snowLibraries().ETHToken(),
+        token: snowLibraries().AVAXToken(),
         distributionLimit: 10 * 10**18,
         overflowAllowance: 5 * 10**18,
-        distributionLimitCurrency: snowLibraries().ETH(),
-        overflowAllowanceCurrency: snowLibraries().ETH()
+        distributionLimitCurrency: snowLibraries().AVAX(),
+        overflowAllowanceCurrency: snowLibraries().AVAX()
       })
     );
 
@@ -141,12 +141,12 @@ contract TestMultipleTerminals is TestBaseWorkflow {
 
     snowPrices().addFeedFor(
       snowLibraries().USD(), // currency
-      snowLibraries().ETH(), // base weight currency
+      snowLibraries().AVAX(), // base weight currency
       _priceFeedUsdEth
     );
 
     snowPrices().addFeedFor(
-      snowLibraries().ETH(), // currency
+      snowLibraries().AVAX(), // currency
       snowLibraries().USD(), // base weight currency
       _priceFeed
     );
@@ -182,7 +182,7 @@ contract TestMultipleTerminals is TestBaseWorkflow {
     // verify: balance in terminal should be up to date
     assertEq(snowPaymentTerminalStore().balanceOf(ERC20terminal, projectId), 20 * 10**18);
 
-    // ---- Pay in ETH ----
+    // ---- Pay in AVAX ----
     address beneficiaryTwo = address(696969);
     ETHterminal.pay{value: 20 ether}(
       projectId,
@@ -193,20 +193,20 @@ contract TestMultipleTerminals is TestBaseWorkflow {
       false,
       'Forge test',
       new bytes(0)
-    ); // funding target met and 10 ETH are now in the overflow
+    ); // funding target met and 10 AVAX are now in the overflow
 
     // verify: beneficiary should have a balance of SNOWTokens (divided by 2 -> reserved rate = 50%)
     uint256 _userEthBalance = PRBMath.mulDiv(20 ether, (WEIGHT / 10**18), 2);
     assertEq(_tokenStore.balanceOf(beneficiaryTwo, projectId), _userEthBalance);
 
-    // verify: ETH balance in terminal should be up to date
+    // verify: AVAX balance in terminal should be up to date
     assertEq(snowPaymentTerminalStore().balanceOf(ETHterminal, projectId), 20 ether);
 
     // ---- Use allowance ----
     evm.startPrank(_projectOwner);
     ERC20terminal.useAllowanceOf(
       projectId,
-      5 * 10**18, // amt in ETH (overflow allowance currency is in ETH)
+      5 * 10**18, // amt in AVAX (overflow allowance currency is in ETH)
       snowLibraries().USD(), // Currency -> (fake price is 10)
       address(0), //token (unused)
       1, // Min wei out
@@ -231,7 +231,7 @@ contract TestMultipleTerminals is TestBaseWorkflow {
     ETHterminal.distributePayoutsOf(
       projectId,
       10 * 10**18,
-      snowLibraries().ETH(), // Currency
+      snowLibraries().AVAX(), // Currency
       address(0), //token (unused)
       0, // Min wei out
       'Foundry payment' // Memo

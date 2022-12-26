@@ -6,7 +6,7 @@ import './abstract/SNOWPayoutRedemptionPaymentTerminal.sol';
 
 /**
   @notice
-  Manages all inflows and outflows of ETH funds into the protocol ecosystem.
+  Manages all inflows and outflows of AVAX funds into the protocol ecosystem.
 
   @dev
   Inherits from -
@@ -38,9 +38,9 @@ contract SNOWETHPaymentTerminal is SNOWPayoutRedemptionPaymentTerminal {
     address _owner
   )
     SNOWPayoutRedemptionPaymentTerminal(
-      SNOWTokens.ETH,
+      SNOWTokens.AVAX ,
       18, // 18 decimals.
-      SNOWCurrencies.ETH,
+      SNOWCurrencies.AVAX,
       _baseWeightCurrency,
       SNOWSplitsGroups.ETH_PAYOUT,
       _operatorStore,

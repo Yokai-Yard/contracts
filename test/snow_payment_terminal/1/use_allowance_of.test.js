@@ -68,7 +68,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    const CURRENCY_ETH = await snowCurrencies.ETH();
+    const CURRENCY_AVAX = await snowCurrencies.AVAX();
 
     const snowTerminalFactory = await ethers.getContractFactory(
       'contracts/SNOWETHPaymentTerminal.sol:SNOWETHPaymentTerminal',
@@ -102,7 +102,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
 
     let snowTokenFactory = await ethers.getContractFactory('SNOWTokens');
     let snowToken = await snowTokenFactory.deploy();
-    const ETH_ADDRESS = await snowToken.ETH();
+    const ETH_ADDRESS = await snowToken.AVAX();
 
     await mockJbDirectory.mock.primaryTerminalOf
       .withArgs(JUICEBOX_PROJECT_ID, ETH_ADDRESS)

@@ -66,8 +66,8 @@ contract TestERC20Terminal is TestBaseWorkflow {
         token: address(snowToken()),
         distributionLimit: 10 * 10**18,
         overflowAllowance: 5 * 10**18,
-        distributionLimitCurrency: snowLibraries().ETH(),
-        overflowAllowanceCurrency: snowLibraries().ETH()
+        distributionLimitCurrency: snowLibraries().AVAX(),
+        overflowAllowanceCurrency: snowLibraries().AVAX()
       })
     );
 
@@ -125,7 +125,7 @@ contract TestERC20Terminal is TestBaseWorkflow {
       PRBMath.mulDiv(5 * 10**18, snowLibraries().MAX_FEE(), snowLibraries().MAX_FEE() + terminal.fee())
     );
 
-    // Distribute the funding target ETH -> splits[] is empty -> everything in left-over, to project owner
+    // Distribute the funding target AVAX -> splits[] is empty -> everything in left-over, to project owner
     uint256 initBalance = snowToken().balanceOf(_projectOwner);
     evm.prank(_projectOwner);
     terminal.distributePayoutsOf(
@@ -177,8 +177,8 @@ contract TestERC20Terminal is TestBaseWorkflow {
         token: address(snowToken()),
         distributionLimit: TARGET,
         overflowAllowance: ALLOWANCE,
-        distributionLimitCurrency: snowLibraries().ETH(),
-        overflowAllowanceCurrency: snowLibraries().ETH()
+        distributionLimitCurrency: snowLibraries().AVAX(),
+        overflowAllowanceCurrency: snowLibraries().AVAX()
       })
     );
 
@@ -202,13 +202,13 @@ contract TestERC20Terminal is TestBaseWorkflow {
     evm.prank(caller); // back to regular msg.sender (bug?)
     snowToken().approve(address(terminal), BALANCE);
     evm.prank(caller); // back to regular msg.sender (bug?)
-    terminal.pay(projectId, BALANCE, address(0), msg.sender, 0, false, 'Forge test', new bytes(0)); // funding target met and 10 ETH are now in the overflow
+    terminal.pay(projectId, BALANCE, address(0), msg.sender, 0, false, 'Forge test', new bytes(0)); // funding target met and 10 AVAX are now in the overflow
 
     // verify: beneficiary should have a balance of SNOWTokens (divided by 2 -> reserved rate = 50%)
     uint256 _userTokenBalance = PRBMath.mulDiv(BALANCE, (WEIGHT / 10**18), 2);
     if (BALANCE != 0) assertEq(_tokenStore.balanceOf(msg.sender, projectId), _userTokenBalance);
 
-    // verify: ETH balance in terminal should be up to date
+    // verify: AVAX balance in terminal should be up to date
     assertEq(snowPaymentTerminalStore().balanceOf(terminal, projectId), BALANCE);
 
     bool willRevert;
@@ -240,7 +240,7 @@ contract TestERC20Terminal is TestBaseWorkflow {
         PRBMath.mulDiv(ALLOWANCE, snowLibraries().MAX_FEE(), snowLibraries().MAX_FEE() + terminal.fee())
       );
 
-    // Distribute the funding target ETH -> no split then beneficiary is the project owner
+    // Distribute the funding target AVAX -> no split then beneficiary is the project owner
     uint256 initBalance = snowToken().balanceOf(_projectOwner);
 
     if (TARGET > BALANCE)

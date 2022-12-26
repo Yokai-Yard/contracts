@@ -29,7 +29,7 @@ describe('SNOWETHERC20ProjectPayer::pay(...)', function () {
     let snowTokensFactory = await ethers.getContractFactory('SNOWTokens');
     let snowTokens = await snowTokensFactory.deploy();
 
-    ethToken = await snowTokens.ETH();
+    ethToken = await snowTokens.AVAX();
   });
 
   async function setup() {
@@ -318,7 +318,7 @@ describe('SNOWETHERC20ProjectPayer::pay(...)', function () {
     ).to.not.be.reverted;
   });
 
-  it(`Fallback function should pay ETH funds towards default project with addToBalance`, async function () {
+  it(`Fallback function should pay AVAX funds towards default project with addToBalance`, async function () {
     const { snowProjectPayer, mockJbDirectory, mockJbTerminal, owner, addrs } = await setup();
 
     let caller = addrs[0];

@@ -9,10 +9,10 @@ import './libraries/SNOWTokens.sol';
 
 /** 
   @notice 
-  Sends ETH or ERC20's to a project treasury as it receives direct payments or has it's functions called.
+  Sends AVAX or ERC20's to a project treasury as it receives direct payments or has it's functions called.
 
   @dev
-  Inherit from this contract or borrow from its logic to forward ETH or ERC20's to project treasuries from within other contracts.
+  Inherit from this contract or borrow from its logic to forward AVAX or ERC20's to project treasuries from within other contracts.
 
   @dev
   Adheres to -
@@ -152,13 +152,13 @@ contract SNOWETHERC20ProjectPayer is Ownable, ERC165, ISNOWProjectPayer {
     Use the `addToBalance` function if there's a preference to do so. Otherwise use `pay`.
 
     @dev
-    This function is called automatically when the contract receives an ETH payment.
+    This function is called automatically when the contract receives an AVAX payment.
   */
   receive() external payable virtual override {
     if (defaultPreferAddToBalance)
       _addToBalanceOf(
         defaultProjectId,
-        SNOWTokens.ETH,
+        SNOWTokens.AVAX ,
         address(this).balance,
         18, // balance is a fixed point number with 18 decimals.
         defaultMemo,
@@ -167,7 +167,7 @@ contract SNOWETHERC20ProjectPayer is Ownable, ERC165, ISNOWProjectPayer {
     else
       _pay(
         defaultProjectId,
-        SNOWTokens.ETH,
+        SNOWTokens.AVAX ,
         address(this).balance,
         18, // balance is a fixed point number with 18 decimals.
         defaultBeneficiary == address(0) ? msg.sender : defaultBeneficiary,
@@ -184,7 +184,7 @@ contract SNOWETHERC20ProjectPayer is Ownable, ERC165, ISNOWProjectPayer {
 
   /** 
     @notice 
-    Sets the default values that determine how to interact with a protocol treasury when this contract receives ETH directly.
+    Sets the default values that determine how to interact with a protocol treasury when this contract receives AVAX directly.
 
     @param _projectId The ID of the project whose treasury should be forwarded this contract's received payments.
     @param _beneficiary The address that'll receive the project's tokens. 
@@ -263,14 +263,14 @@ contract SNOWETHERC20ProjectPayer is Ownable, ERC165, ISNOWProjectPayer {
     string calldata _memo,
     bytes calldata _metadata
   ) public payable virtual override {
-    // ETH shouldn't be sent if the token isn't ETH.
-    if (address(_token) != SNOWTokens.ETH) {
+    // AVAX shouldn't be sent if the token isn't ETH.
+    if (address(_token) != SNOWTokens.AVAX ) {
       if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
 
       // Transfer tokens to this contract from the msg sender.
       IERC20(_token).transferFrom(msg.sender, address(this), _amount);
     } else {
-      // If ETH is being paid, set the amount to the message value, and decimals to 18.
+      // If AVAX is being paid, set the amount to the message value, and decimals to 18.
       _amount = msg.value;
       _decimals = 18;
     }
@@ -307,14 +307,14 @@ contract SNOWETHERC20ProjectPayer is Ownable, ERC165, ISNOWProjectPayer {
     string calldata _memo,
     bytes calldata _metadata
   ) public payable virtual override {
-    // ETH shouldn't be sent if the token isn't ETH.
-    if (address(_token) != SNOWTokens.ETH) {
+    // AVAX shouldn't be sent if the token isn't ETH.
+    if (address(_token) != SNOWTokens.AVAX ) {
       if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
 
       // Transfer tokens to this contract from the msg sender.
       IERC20(_token).transferFrom(msg.sender, address(this), _amount);
     } else {
-      // If ETH is being paid, set the amount to the message value, and decimals to 18.
+      // If AVAX is being paid, set the amount to the message value, and decimals to 18.
       _amount = msg.value;
       _decimals = 18;
     }
@@ -361,16 +361,16 @@ contract SNOWETHERC20ProjectPayer is Ownable, ERC165, ISNOWProjectPayer {
     if (_terminal.decimalsForToken(_token) != _decimals) revert INCORRECT_DECIMAL_AMOUNT();
 
     // Approve the `_amount` of tokens from the destination terminal to transfer tokens from this contract.
-    if (_token != SNOWTokens.ETH) IERC20(_token).approve(address(_terminal), _amount);
+    if (_token != SNOWTokens.AVAX ) IERC20(_token).approve(address(_terminal), _amount);
 
     // If the token is ETH, send it in msg.value.
-    uint256 _payableValue = _token == SNOWTokens.ETH ? _amount : 0;
+    uint256 _payableValue = _token == SNOWTokens.AVAX  ? _amount : 0;
 
     // Send funds to the terminal.
     // If the token is ETH, send it in msg.value.
     _terminal.pay{value: _payableValue}(
       _projectId,
-      _amount, // ignored if the token is SNOWTokens.ETH.
+      _amount, // ignored if the token is SNOWTokens.AVAX .
       _token,
       _beneficiary != address(0) ? _beneficiary : msg.sender,
       _minReturnedTokens,
@@ -409,10 +409,10 @@ contract SNOWETHERC20ProjectPayer is Ownable, ERC165, ISNOWProjectPayer {
     if (_terminal.decimalsForToken(_token) != _decimals) revert INCORRECT_DECIMAL_AMOUNT();
 
     // Approve the `_amount` of tokens from the destination terminal to transfer tokens from this contract.
-    if (_token != SNOWTokens.ETH) IERC20(_token).approve(address(_terminal), _amount);
+    if (_token != SNOWTokens.AVAX ) IERC20(_token).approve(address(_terminal), _amount);
 
     // If the token is ETH, send it in msg.value.
-    uint256 _payableValue = _token == SNOWTokens.ETH ? _amount : 0;
+    uint256 _payableValue = _token == SNOWTokens.AVAX  ? _amount : 0;
 
     // Add to balance so tokens don't get issued.
     _terminal.addToBalanceOf{value: _payableValue}(_projectId, _amount, _token, _memo, _metadata);

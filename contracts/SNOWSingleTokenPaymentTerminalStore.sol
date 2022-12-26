@@ -855,17 +855,17 @@ contract SNOWSingleTokenPaymentTerminalStore is ReentrancyGuard, ISNOWSingleToke
     // Get a reference to the project's terminals.
     ISNOWPaymentTerminal[] memory _terminals = directory.terminalsOf(_projectId);
 
-    // Keep a reference to the ETH overflow across all terminals, as a fixed point number with 18 decimals.
+    // Keep a reference to the AVAX overflow across all terminals, as a fixed point number with 18 decimals.
     uint256 _ethOverflow;
 
-    // Add the current ETH overflow for each terminal.
+    // Add the current AVAX overflow for each terminal.
     for (uint256 _i = 0; _i < _terminals.length; _i++)
       _ethOverflow = _ethOverflow + _terminals[_i].currentEthOverflowOf(_projectId);
 
-    // Convert the ETH overflow to the specified currency if needed, maintaining a fixed point number with 18 decimals.
-    uint256 _totalOverflow18Decimal = _currency == SNOWCurrencies.ETH
+    // Convert the AVAX overflow to the specified currency if needed, maintaining a fixed point number with 18 decimals.
+    uint256 _totalOverflow18Decimal = _currency == SNOWCurrencies.AVAX
       ? _ethOverflow
-      : PRBMath.mulDiv(_ethOverflow, 10**18, prices.priceFor(SNOWCurrencies.ETH, _currency, 18));
+      : PRBMath.mulDiv(_ethOverflow, 10**18, prices.priceFor(SNOWCurrencies.AVAX, _currency, 18));
 
     // Adjust the decimals of the fixed point number if needed to match the target decimals.
     return

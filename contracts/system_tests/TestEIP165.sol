@@ -36,7 +36,7 @@ contract TestEIP165 is TestBaseWorkflow {
     SNOWERC20PaymentTerminal terminal = new SNOWERC20PaymentTerminal(
       snowToken(),
       snowLibraries().USD(), // currency
-      snowLibraries().ETH(), // base weight currency
+      snowLibraries().AVAX(), // base weight currency
       1, // SNOWSplitsGroupe
       snowOperatorStore(),
       snowProjects(),

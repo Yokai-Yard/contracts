@@ -6,16 +6,16 @@ import '../../libraries/SNOWConstants.sol';
 import '../../libraries/SNOWTokens.sol';
 
 contract AccessSNOWLib {
-  function ETH() external pure returns (uint256) {
-    return SNOWCurrencies.ETH;
+  function AVAX() external pure returns (uint256) {
+    return SNOWCurrencies.AVAX;
   }
 
   function USD() external pure returns (uint256) {
     return SNOWCurrencies.USD;
   }
 
-  function ETHToken() external pure returns (address) {
-    return SNOWTokens.ETH;
+  function AVAXToken() external pure returns (address) {
+    return SNOWTokens.AVAX ;
   }
 
   function MAX_FEE() external pure returns (uint256) {

@@ -1,0 +1,124 @@
+{
+  "address": "0xF5C2C6C510eE18211C0A70d3e7d3BF58bd1cFF51",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract AggregatorV3Interface",
+          "name": "_feed",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_decimals",
+          "type": "uint256"
+        }
+      ],
+      "name": "currentPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "feed",
+      "outputs": [
+        {
+          "internalType": "contract AggregatorV3Interface",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xb35ad56cc6943750c43f47a03af60dfb53f5315b8186be9ae14a0d23f9a3f760",
+  "receipt": {
+    "to": null,
+    "from": "0x5502a9690499BDC32655a350bF9926A077Dc8161",
+    "contractAddress": "0xF5C2C6C510eE18211C0A70d3e7d3BF58bd1cFF51",
+    "transactionIndex": 0,
+    "gasUsed": "364563",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x9941af7eb0fb14e39e2c5b3f407be9868c42eb280812ec99f58b8266e70e8111",
+    "transactionHash": "0xb35ad56cc6943750c43f47a03af60dfb53f5315b8186be9ae14a0d23f9a3f760",
+    "logs": [],
+    "blockNumber": 17340543,
+    "cumulativeGasUsed": "364563",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x5498BB86BC934c8D34FDA08E81D444153d0D06aD"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "3ad4aaab0fb7c12f1ea94b1e60dc4900",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"_feed\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_decimals\",\"type\":\"uint256\"}],\"name\":\"currentPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"feed\",\"outputs\":[{\"internalType\":\"contract AggregatorV3Interface\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"Adheres to - ISNOWPriceFeed: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.\",\"kind\":\"dev\",\"methods\":{\"constructor\":{\"params\":{\"_feed\":\"The feed to report prices from.\"}},\"currentPrice(uint256)\":{\"params\":{\"_decimals\":\"The number of decimals the returned fixed point price should include.\"},\"returns\":{\"_0\":\"The current price of the feed, as a fixed point number with the specified number of decimals.\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"currentPrice(uint256)\":{\"notice\":\" Gets the current price from the feed, normalized to the specified number of decimals.\"},\"feed()\":{\"notice\":\" The feed that prices are reported from.\"}},\"notice\":\" A generalized price feed for the Chainlink AggregatorV3Interface.\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/SNOWChainlinkV3PriceFeed.sol\":\"SNOWChainlinkV3PriceFeed\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":10000},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\ninterface AggregatorV3Interface {\\n\\n  function decimals()\\n    external\\n    view\\n    returns (\\n      uint8\\n    );\\n\\n  function description()\\n    external\\n    view\\n    returns (\\n      string memory\\n    );\\n\\n  function version()\\n    external\\n    view\\n    returns (\\n      uint256\\n    );\\n\\n  // getRoundData and latestRoundData should both raise \\\"No data present\\\"\\n  // if they do not have data to report, instead of returning unset values\\n  // which could be misinterpreted as actual reported values.\\n  function getRoundData(\\n    uint80 _roundId\\n  )\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n\\n  function latestRoundData()\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n\\n}\\n\",\"keccak256\":\"0xe6f5ac8c47f3b9b6135051efb9216f9ba5b312a6ecc20209b4f66a780443c328\",\"license\":\"MIT\"},\"contracts/SNOWChainlinkV3PriceFeed.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.6;\\n\\nimport '@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol';\\nimport './interfaces/ISNOWPriceFeed.sol';\\nimport './libraries/SNOWFixedPointNumber.sol';\\n\\n/** \\n  @notice \\n  A generalized price feed for the Chainlink AggregatorV3Interface.\\n\\n  @dev\\n  Adheres to -\\n  ISNOWPriceFeed: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.\\n*/\\ncontract SNOWChainlinkV3PriceFeed is ISNOWPriceFeed {\\n  // A library that provides utility for fixed point numbers.\\n  using SNOWFixedPointNumber for uint256;\\n\\n  //*********************************************************************//\\n  // --------------------- public stored properties -------------------- //\\n  //*********************************************************************//\\n\\n  /** \\n    @notice \\n    The feed that prices are reported from.\\n  */\\n  AggregatorV3Interface public feed;\\n\\n  //*********************************************************************//\\n  // ------------------------- external views -------------------------- //\\n  //*********************************************************************//\\n\\n  /** \\n    @notice \\n    Gets the current price from the feed, normalized to the specified number of decimals.\\n\\n    @param _decimals The number of decimals the returned fixed point price should include.\\n\\n    @return The current price of the feed, as a fixed point number with the specified number of decimals.\\n  */\\n  function currentPrice(uint256 _decimals) external view override returns (uint256) {\\n    // Get the latest round information. Only need the price is needed.\\n    (, int256 _price, , , ) = feed.latestRoundData();\\n\\n    // Get a reference to the number of decimals the feed uses.\\n    uint256 _feedDecimals = feed.decimals();\\n\\n    // Return the price, adjusted to the target decimals.\\n    return uint256(_price).adjustDecimals(_feedDecimals, _decimals);\\n  }\\n\\n  //*********************************************************************//\\n  // -------------------------- constructor ---------------------------- //\\n  //*********************************************************************//\\n\\n  /** \\n    @param _feed The feed to report prices from.\\n  */\\n  constructor(AggregatorV3Interface _feed) {\\n    feed = _feed;\\n  }\\n}\\n\",\"keccak256\":\"0x7edb85e4b8f8a3d9c02c391d2bfa980330332446c8abb35c6d8d97e537301f88\",\"license\":\"MIT\"},\"contracts/interfaces/ISNOWPriceFeed.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\ninterface ISNOWPriceFeed {\\n  function currentPrice(uint256 _targetDecimals) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x3f401affcaabd0af7d485b2cdaca550093aad49669a0e4d9d70b2c504ce1de7b\",\"license\":\"MIT\"},\"contracts/libraries/SNOWFixedPointNumber.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\nlibrary SNOWFixedPointNumber {\\n  function adjustDecimals(\\n    uint256 _value,\\n    uint256 _decimals,\\n    uint256 _targetDecimals\\n  ) internal pure returns (uint256) {\\n    // If decimals need adjusting, multiply or divide the price by the decimal adjuster to get the normalized result.\\n    if (_targetDecimals == _decimals) return _value;\\n    else if (_targetDecimals > _decimals) return _value * 10**(_targetDecimals - _decimals);\\n    else return _value / 10**(_decimals - _targetDecimals);\\n  }\\n}\\n\",\"keccak256\":\"0x868bc22b0439aca9d1e18bf17178564316cfc1cfb416df75585769f5dfed1644\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506040516105c83803806105c883398101604081905261002f91610054565b600080546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b610535806100936000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c806337a7b7d81461003b5780637a3c4c1714610085575b600080fd5b60005461005b9073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b61009861009336600461028c565b6100a6565b60405190815260200161007c565b60008054604080517ffeaf968c0000000000000000000000000000000000000000000000000000000081529051839273ffffffffffffffffffffffffffffffffffffffff169163feaf968c9160048083019260a0929190829003018186803b15801561011157600080fd5b505afa158015610125573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061014991906102a5565b50505091505060008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663313ce5676040518163ffffffff1660e01b815260040160206040518083038186803b1580156101b857600080fd5b505afa1580156101cc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101f091906102f5565b60ff169050610200828286610208565b949350505050565b600082821415610219575082610266565b828211156102475761022b83836104b9565b61023690600a6103b4565b610240908561047c565b9050610266565b61025182846104b9565b61025c90600a6103b4565b6102409085610318565b9392505050565b805169ffffffffffffffffffff8116811461028757600080fd5b919050565b60006020828403121561029e57600080fd5b5035919050565b600080600080600060a086880312156102bd57600080fd5b6102c68661026d565b94506020860151935060408601519250606086015191506102e96080870161026d565b90509295509295909350565b60006020828403121561030757600080fd5b815160ff8116811461026657600080fd5b60008261034e577f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b500490565b600181815b808511156103ac57817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115610392576103926104d0565b8085161561039f57918102915b93841c9390800290610358565b509250929050565b600061026683836000826103ca57506001610476565b816103d757506000610476565b81600181146103ed57600281146103f757610413565b6001915050610476565b60ff841115610408576104086104d0565b50506001821b610476565b5060208310610133831016604e8410600b8410161715610436575081810a610476565b6104408383610353565b807fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115610472576104726104d0565b0290505b92915050565b6000817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04831182151516156104b4576104b46104d0565b500290565b6000828210156104cb576104cb6104d0565b500390565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fdfea26469706673582212201e1a53dc115708806fe084120553b6eec14b0562cc1d4db65f2c7076c069dd7f64736f6c63430008060033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c806337a7b7d81461003b5780637a3c4c1714610085575b600080fd5b60005461005b9073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b61009861009336600461028c565b6100a6565b60405190815260200161007c565b60008054604080517ffeaf968c0000000000000000000000000000000000000000000000000000000081529051839273ffffffffffffffffffffffffffffffffffffffff169163feaf968c9160048083019260a0929190829003018186803b15801561011157600080fd5b505afa158015610125573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061014991906102a5565b50505091505060008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663313ce5676040518163ffffffff1660e01b815260040160206040518083038186803b1580156101b857600080fd5b505afa1580156101cc573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101f091906102f5565b60ff169050610200828286610208565b949350505050565b600082821415610219575082610266565b828211156102475761022b83836104b9565b61023690600a6103b4565b610240908561047c565b9050610266565b61025182846104b9565b61025c90600a6103b4565b6102409085610318565b9392505050565b805169ffffffffffffffffffff8116811461028757600080fd5b919050565b60006020828403121561029e57600080fd5b5035919050565b600080600080600060a086880312156102bd57600080fd5b6102c68661026d565b94506020860151935060408601519250606086015191506102e96080870161026d565b90509295509295909350565b60006020828403121561030757600080fd5b815160ff8116811461026657600080fd5b60008261034e577f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b500490565b600181815b808511156103ac57817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115610392576103926104d0565b8085161561039f57918102915b93841c9390800290610358565b509250929050565b600061026683836000826103ca57506001610476565b816103d757506000610476565b81600181146103ed57600281146103f757610413565b6001915050610476565b60ff841115610408576104086104d0565b50506001821b610476565b5060208310610133831016604e8410600b8410161715610436575081810a610476565b6104408383610353565b807fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115610472576104726104d0565b0290505b92915050565b6000817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04831182151516156104b4576104b46104d0565b500290565b6000828210156104cb576104cb6104d0565b500390565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fdfea26469706673582212201e1a53dc115708806fe084120553b6eec14b0562cc1d4db65f2c7076c069dd7f64736f6c63430008060033",
+  "devdoc": {
+    "details": "Adheres to - ISNOWPriceFeed: General interface for the methods in this contract that interact with the blockchain's state according to the protocol's rules.",
+    "kind": "dev",
+    "methods": {
+      "constructor": {
+        "params": {
+          "_feed": "The feed to report prices from."
+        }
+      },
+      "currentPrice(uint256)": {
+        "params": {
+          "_decimals": "The number of decimals the returned fixed point price should include."
+        },
+        "returns": {
+          "_0": "The current price of the feed, as a fixed point number with the specified number of decimals."
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "currentPrice(uint256)": {
+        "notice": " Gets the current price from the feed, normalized to the specified number of decimals."
+      },
+      "feed()": {
+        "notice": " The feed that prices are reported from."
+      }
+    },
+    "notice": " A generalized price feed for the Chainlink AggregatorV3Interface.",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 4610,
+        "contract": "contracts/SNOWChainlinkV3PriceFeed.sol:SNOWChainlinkV3PriceFeed",
+        "label": "feed",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(AggregatorV3Interface)45"
+      }
+    ],
+    "types": {
+      "t_contract(AggregatorV3Interface)45": {
+        "encoding": "inplace",
+        "label": "contract AggregatorV3Interface",
+        "numberOfBytes": "20"
+      }
+    }
+  }
+}

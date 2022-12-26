@@ -25,7 +25,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::pay(...)', function () {
   const TOKEN_RECEIVED = 100;
   const ETH_TO_PAY = ethers.utils.parseEther('1');
   const PREFER_CLAIMED_TOKENS = true;
-  const CURRENCY_ETH = 1;
+  const CURRENCY_AVAX = 1;
   const DECIMALS = 1;
 
   let ethToken;

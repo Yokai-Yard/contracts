@@ -21,7 +21,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::getters', function () {
   before(async function () {
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    CURRENCY_ETH = await snowCurrencies.ETH();
+    CURRENCY_AVAX = await snowCurrencies.AVAX();
   });
 
   async function setup() {

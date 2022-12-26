@@ -51,7 +51,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::distributePayoutsOf(...)', functi
 
     ETH_PAYOUT_INDEX = await snowSplitsGroups.ETH_PAYOUT();
 
-    ETH_ADDRESS = await snowToken.ETH();
+    ETH_ADDRESS = await snowToken.AVAX();
     SPLITS_TOTAL_PERCENT = await snowConstants.SPLITS_TOTAL_PERCENT();
     MAX_FEE_DISCOUNT = await snowConstants.MAX_FEE_DISCOUNT();
     MAX_FEE = (await snowConstants.MAX_FEE()).toNumber();
@@ -107,7 +107,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::distributePayoutsOf(...)', functi
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    const CURRENCY_ETH = await snowCurrencies.ETH();
+    const CURRENCY_AVAX = await snowCurrencies.AVAX();
     const CURRENCY_USD = await snowCurrencies.USD();
 
     let snowEthTerminalFactory = await ethers.getContractFactory(
@@ -159,7 +159,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::distributePayoutsOf(...)', functi
       .withArgs(1, ETH_ADDRESS)
       .returns(snowEthPaymentTerminal.address);
 
-    // ETH distribution
+    // AVAX distribution
     await mockSNOWPaymentTerminalStore.mock.recordDistributionFor
       .withArgs(PROJECT_ID, AMOUNT_TO_DISTRIBUTE, CURRENCY)
       .returns(fundingCycle, AMOUNT_DISTRIBUTED);
@@ -1459,7 +1459,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::distributePayoutsOf(...)', functi
     await mockJbEthPaymentTerminal.mock.pay
       .withArgs(
         1, //SNOWX Dao
-        AMOUNT_DISTRIBUTED - AMOUNT_MINUS_FEES, // 0 if fee is in ETH (as the amount is then in msg.value)
+        AMOUNT_DISTRIBUTED - AMOUNT_MINUS_FEES, // 0 if fee is in AVAX (as the amount is then in msg.value)
         ETH_ADDRESS,
         projectOwner.address,
         0,
@@ -1573,7 +1573,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::distributePayoutsOf(...)', functi
     await mockJbEthPaymentTerminal.mock.pay
       .withArgs(
         1, //SNOWX Dao
-        AMOUNT_DISTRIBUTED - AMOUNT_MINUS_FEES, // 0 if fee is in ETH (as the amount is then in msg.value)
+        AMOUNT_DISTRIBUTED - AMOUNT_MINUS_FEES, // 0 if fee is in AVAX (as the amount is then in msg.value)
         ETH_ADDRESS,
         projectOwner.address,
         0,

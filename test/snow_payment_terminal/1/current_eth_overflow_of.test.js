@@ -20,7 +20,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::currentEthOverflowOf(...)', funct
   before(async function () {
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    CURRENCY_ETH = await snowCurrencies.ETH();
+    CURRENCY_AVAX = await snowCurrencies.AVAX();
     CURRENCY_USD = await snowCurrencies.USD();
   });
 
@@ -56,7 +56,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::currentEthOverflowOf(...)', funct
       deployer,
     );
 
-    // ETH terminal
+    // AVAX terminal
     let snowEthPaymentTerminal = await snowTerminalFactory
       .connect(deployer)
       .deploy(

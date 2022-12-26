@@ -33,7 +33,7 @@ describe('SNOWSingleTokenPaymentTerminalStore::currentOverflowOf(...)', function
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    const CURRENCY_ETH = await snowCurrencies.ETH();
+    const CURRENCY_AVAX = await snowCurrencies.AVAX();
     const CURRENCY_USD = await snowCurrencies.USD();
 
     const token = ethers.Wallet.createRandom().address;
@@ -117,7 +117,7 @@ describe('SNOWSingleTokenPaymentTerminalStore::currentOverflowOf(...)', function
     ).to.equal(AMOUNT);
   });
 
-  it('Should return 0 overflow if ETH balance < distribution remaining', async function () {
+  it('Should return 0 overflow if AVAX balance < distribution remaining', async function () {
     const {
       mockJbTerminal,
       mockJbController,
@@ -153,7 +153,7 @@ describe('SNOWSingleTokenPaymentTerminalStore::currentOverflowOf(...)', function
     ).to.equal(0);
   });
 
-  it('Should return 0 overflow if ETH balance is 0', async function () {
+  it('Should return 0 overflow if AVAX balance is 0', async function () {
     const {
       mockJbFundingCycleStore,
       mockJbTerminal,

@@ -1,7 +1,7 @@
 const { ethers } = require('hardhat');
 
 /**
- * Deploys the Juicebox V2 contract ecosystem.
+ * Deploys the SnowCone V2 contract ecosystem.
  *
  * Example usage:
  *
@@ -28,10 +28,12 @@ module.exports = async ({ deployments, getChainId }) => {
   switch (chainId) {
     case '31337':
       multisigAddress = deployer.address;
+      chainlinkV2UsdEthPriceFeed = '0x0a77230d17318075983913bc2145db16c7366156';
       protocolProjectStartsAtOrAfter = 0;
       break;
     case '43113':
       multisigAddress = deployer.address;
+      chainlinkV2UsdEthPriceFeed = '0x5498BB86BC934c8D34FDA08E81D444153d0D06aD';
       protocolProjectStartsAtOrAfter = 0;
       break;
   }
@@ -142,13 +144,13 @@ module.exports = async ({ deployments, getChainId }) => {
   const snowProjects = new ethers.Contract(SNOWProjects.address, SNOWProjects.abi);
   const snowCurrenciesLibrary = new ethers.Contract(SNOWCurrencies.address, SNOWCurrencies.abi);
 
-  // Get a reference to USD and ETH currency indexes.
+  // Get a reference to USD and AVAX currency indexes.
   const USD = await snowCurrenciesLibrary.connect(deployer).USD();
-  const ETH = await snowCurrenciesLibrary.connect(deployer).ETH();
+  const AVAX = await snowCurrenciesLibrary.connect(deployer).AVAX();
 
   // Deploy a SNOWETHPaymentTerminal contract.
 
-  console.log(ETH,
+  console.log(AVAX,
     SNOWOperatorStore.address,
     SNOWProjects.address,
     SNOWDirectory.address,
@@ -160,7 +162,7 @@ module.exports = async ({ deployments, getChainId }) => {
     ...baseDeployArgs,
     contract: "contracts/SNOWETHPaymentTerminal.sol:SNOWETHPaymentTerminal",
     args: [
-      ETH,
+      AVAX,
       SNOWOperatorStore.address,
       SNOWProjects.address,
       SNOWDirectory.address,
@@ -172,7 +174,7 @@ module.exports = async ({ deployments, getChainId }) => {
   });
 
   // Get a reference to an existing ETH/USD feed.
-  const usdEthFeed = await snowPricesContract.connect(deployer).feedFor(USD, ETH);
+  const usdEthFeed = await snowPricesContract.connect(deployer).feedFor(USD, AVAX);
 
   // If needed, deploy an ETH/USD price feed and add it to the store.
   if (chainlinkV2UsdEthPriceFeed && usdEthFeed == ethers.constants.AddressZero) {
@@ -182,10 +184,10 @@ module.exports = async ({ deployments, getChainId }) => {
       args: [chainlinkV2UsdEthPriceFeed],
     });
 
-    //The base currency is ETH since the feed returns the USD price of 1 ETH.
+    //The base currency is AVAX since the feed returns the USD price of 1 ETH.
     await snowPricesContract
       .connect(deployer)
-      .addFeedFor(USD, ETH, SNOWChainlinkV3UsdEthPriceFeed.address);
+      .addFeedFor(USD, AVAX, SNOWChainlinkV3UsdEthPriceFeed.address);
   }
 
   // If needed, transfer the ownership of the SNOWPrices to to the multisig.
@@ -215,22 +217,7 @@ module.exports = async ({ deployments, getChainId }) => {
     console.log('Adding reserved token splits with current beneficiaries (as of deployment)');
 
     const beneficiaries = [
-      '0x90eda5165e5e1633e0bdb6307cdecae564b10ff7',
-      '0xe7879a2d05dba966fcca34ee9c3f99eee7edefd1',
-      '0x1dd2091f250876ba87b6fe17e6ca925e1b1c0cf0',
-      '0xf7253a0e87e39d2cd6365919d4a3d56d431d0041',
-      '0x111040f27f05e2017e32b9ac6d1e9593e4e19a2a',
-      '0x5d95baebb8412ad827287240a5c281e3bb30d27e',
-      '0xd551b861414b7a2836e4b4615b8155c4b1ecc067',
-      '0x34724d71ce674fcd4d06e60dd1baa88c14d36b75',
-      '0xf0fe43a75ff248fd2e75d33fa1ebde71c6d1abad',
-      '0x6860f1a0cf179ed93abd3739c7f6c8961a4eea3c',
-      '0x30670d81e487c80b9edc54370e6eaf943b6eab39',
-      '0xca6ed3fdc8162304d7f1fcfc9ca3a81632d5e5b0',
-      '0x28c173b8f20488eef1b0f48df8453a2f59c38337',
-      '0xe16a238d207b9ac8b419c7a866b0de013c73357b',
-      '0x63a2368f4b509438ca90186cb1c15156713d5834',
-      '0x823b92d6a4b2aed4b15675c7917c9f922ea8adad',
+      '0x5502a9690499BDC32655a350bF9926A077Dc8161',
     ];
 
     let splits = [];
@@ -252,7 +239,7 @@ module.exports = async ({ deployments, getChainId }) => {
       preferAddToBalance: false,
       percent: 400000000, // 40% for SNOWDao
       projectId: 0,
-      beneficiary: '0xaf28bcb48c40dbc86f52d459a6562f658fc94b1e',
+      beneficiary: '0x5502a9690499BDC32655a350bF9926A077Dc8161',
       lockedUntil: 0,
       allocator: ethers.constants.AddressZero,
     });
@@ -281,7 +268,7 @@ module.exports = async ({ deployments, getChainId }) => {
 
       /* projectMetadata */
       [
-        /*content*/ 'QmToqoMoakcVuGbELoJYRfWY5N7qr3Jawxq3xH6u3tbPiv',
+        /*content*/ 'QmVft6EYEzDT7PnqPnn5p5BzxuqZHVzgEccJBRy224jUR8',
         /*domain*/ ethers.BigNumber.from(0),
       ],
 

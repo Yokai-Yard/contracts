@@ -40,7 +40,7 @@ describe('SNOWSingleTokenPaymentTerminalStore::recordRedemptionFor(...)', functi
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    const CURRENCY_ETH = await snowCurrencies.ETH();
+    const CURRENCY_AVAX = await snowCurrencies.AVAX();
 
     const SNOWPaymentTerminalStoreFactory = await ethers.getContractFactory(
       'contracts/SNOWSingleTokenPaymentTerminalStore.sol:SNOWSingleTokenPaymentTerminalStore',

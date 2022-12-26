@@ -55,7 +55,7 @@ export async function impersonateAccount(
 }
 
 /**
- * Set the ETH balance of a given address
+ * Set the AVAX balance of a given address
  * @param {string} address
  * @param {ethers.BigNumber} balance
  */

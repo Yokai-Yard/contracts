@@ -25,7 +25,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::redeemTokensOf(...)', function ()
   const WEIGHT = 1000;
   const METADATA = '0x69';
   const DECIMALS = 10;
-  const DECIMALS_ETH = 18;
+  const DECIMALS_AVAX = 18;
 
   let CURRENCY_ETH;
   let token;
@@ -59,7 +59,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::redeemTokensOf(...)', function ()
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    CURRENCY_ETH = await snowCurrencies.ETH();
+    CURRENCY_AVAX = await snowCurrencies.AVAX();
 
     const snowTerminalFactory = await ethers.getContractFactory(
       'contracts/SNOWETHPaymentTerminal.sol:SNOWETHPaymentTerminal',
@@ -420,7 +420,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::redeemTokensOf(...)', function ()
         /* msg.sender */ holder.address,
       );
 
-    // Terminal's ETH balance should not have changed
+    // Terminal's AVAX balance should not have changed
     expect(await ethers.provider.getBalance(snowEthPaymentTerminal.address)).to.equal(AMOUNT);
 
     // Beneficiary should have the same balance

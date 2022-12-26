@@ -64,8 +64,8 @@ contract TestDistributeHeldFee is TestBaseWorkflow {
     _fundAccessConstraints.push(
       SNOWFundAccessConstraints({
         terminal: _terminal,
-        token: snowLibraries().ETHToken(),
-        distributionLimit: _targetInWei, // 10 ETH target
+        token: snowLibraries().AVAXToken(),
+        distributionLimit: _targetInWei, // 10 AVAX target
         overflowAllowance: 5 ether,
         distributionLimitCurrency: 1, // Currency = ETH
         overflowAllowanceCurrency: 1
@@ -134,7 +134,7 @@ contract TestDistributeHeldFee is TestBaseWorkflow {
     uint256 _userTokenBalance = PRBMathUD60x18.mul(payAmountInWei, _weight);
     assertEq(_tokenStore.balanceOf(_userWallet, _projectId), _userTokenBalance);
 
-    // verify: ETH balance in terminal should be up to date
+    // verify: AVAX balance in terminal should be up to date
     uint256 _terminalBalanceInWei = payAmountInWei;
     assertEq(snowPaymentTerminalStore().balanceOf(_terminal, _projectId), _terminalBalanceInWei);
 
@@ -142,7 +142,7 @@ contract TestDistributeHeldFee is TestBaseWorkflow {
     _terminal.distributePayoutsOf(
       _projectId,
       payAmountInWei,
-      snowLibraries().ETH(),
+      snowLibraries().AVAX(),
       address(0), //token (unused)
       /*min out*/
       0,

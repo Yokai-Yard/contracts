@@ -11,10 +11,10 @@ import './SNOWETHERC20ProjectPayer.sol';
 
 /** 
   @notice 
-  Sends ETH or ERC20's to a group of splits as it receives direct payments or has its functions called.
+  Sends AVAX or ERC20's to a group of splits as it receives direct payments or has its functions called.
 
   @dev
-  Inherit from this contract or borrow from its logic to forward ETH or ERC20's to a group of splits from within other contracts.
+  Inherit from this contract or borrow from its logic to forward AVAX or ERC20's to a group of splits from within other contracts.
 
   @dev
   Adheres to -
@@ -22,7 +22,7 @@ import './SNOWETHERC20ProjectPayer.sol';
 
   @dev
   Inherits from -
-  SNOWETHERC20ProjectPayer: Sends ETH or ERC20's to a project treasury as it receives direct payments or has it's functions called.
+  SNOWETHERC20ProjectPayer: Sends AVAX or ERC20's to a project treasury as it receives direct payments or has it's functions called.
   ReentrancyGuard: Contract module that helps prevent reentrant calls to a function.
 */
 contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, ISNOWSplitsPayer {
@@ -140,7 +140,7 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
     Received funds are paid to the default split group using the stored default properties.
 
     @dev
-    This function is called automatically when the contract receives an ETH payment.
+    This function is called automatically when the contract receives an AVAX payment.
   */
   receive() external payable virtual override nonReentrant {
     // Pay the splits and get a reference to the amount leftover.
@@ -148,7 +148,7 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
       defaultSplitsProjectId,
       defaultSplitsDomain,
       defaultSplitsGroup,
-      SNOWTokens.ETH,
+      SNOWTokens.AVAX ,
       address(this).balance,
       18, // decimals.
       defaultBeneficiary != address(0) ? defaultBeneficiary : msg.sender
@@ -163,7 +163,7 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
         // Pay the project by adding to its balance if prefered.
         _addToBalanceOf(
           defaultProjectId,
-          SNOWTokens.ETH,
+          SNOWTokens.AVAX ,
           _leftoverAmount,
           18, // decimals.
           defaultMemo,
@@ -173,7 +173,7 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
       else
         _pay(
           defaultProjectId,
-          SNOWTokens.ETH,
+          SNOWTokens.AVAX ,
           _leftoverAmount,
           18, // decimals.
           defaultBeneficiary != address(0) ? defaultBeneficiary : msg.sender,
@@ -248,14 +248,14 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
     string calldata _memo,
     bytes calldata _metadata
   ) public payable virtual override nonReentrant {
-    // ETH shouldn't be sent if the token isn't ETH.
-    if (address(_token) != SNOWTokens.ETH) {
+    // AVAX shouldn't be sent if the token isn't ETH.
+    if (address(_token) != SNOWTokens.AVAX ) {
       if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
 
       // Transfer tokens to this contract from the msg sender.
       IERC20(_token).transferFrom(msg.sender, address(this), _amount);
     } else {
-      // If ETH is being paid, set the amount to the message value, and decimals to 18.
+      // If AVAX is being paid, set the amount to the message value, and decimals to 18.
       _amount = msg.value;
       _decimals = 18;
     }
@@ -290,7 +290,7 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
       // If no project was specified, send the funds directly to the beneficiary or the msg.sender.
       else {
         // Transfer the ETH.
-        if (_token == SNOWTokens.ETH)
+        if (_token == SNOWTokens.AVAX )
           Address.sendValue(
             // If there's a beneficiary, send the funds directly to the beneficiary. Otherwise send to the msg.sender.
             _beneficiary != address(0) ? payable(_beneficiary) : payable(msg.sender),
@@ -340,14 +340,14 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
     string calldata _memo,
     bytes calldata _metadata
   ) public payable virtual override nonReentrant {
-    // ETH shouldn't be sent if this terminal's token isn't ETH.
-    if (address(_token) != SNOWTokens.ETH) {
+    // AVAX shouldn't be sent if this terminal's token isn't ETH.
+    if (address(_token) != SNOWTokens.AVAX ) {
       if (msg.value > 0) revert NO_MSG_VALUE_ALLOWED();
 
       // Transfer tokens to this contract from the msg sender.
       IERC20(_token).transferFrom(msg.sender, address(this), _amount);
     } else {
-      // If ETH is being paid, set the amount to the message value, and decimals to 18.
+      // If AVAX is being paid, set the amount to the message value, and decimals to 18.
       _amount = msg.value;
       _decimals = 18;
     }
@@ -373,7 +373,7 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
         // Otherwise, send a payment to the beneficiary.
       else {
         // Transfer the ETH.
-        if (_token == SNOWTokens.ETH)
+        if (_token == SNOWTokens.AVAX )
           Address.sendValue(
             // If there's a default beneficiary, send the funds directly to the beneficiary. Otherwise send to the msg.sender.
             defaultBeneficiary != address(0) ? defaultBeneficiary : payable(msg.sender),
@@ -489,11 +489,11 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
           );
 
           // Approve the `_amount` of tokens for the split allocator to transfer tokens from this contract.
-          if (_token != SNOWTokens.ETH)
+          if (_token != SNOWTokens.AVAX )
             IERC20(_token).approve(address(_split.allocator), _splitAmount);
 
           // If the token is ETH, send it in msg.value.
-          uint256 _payableValue = _token == SNOWTokens.ETH ? _splitAmount : 0;
+          uint256 _payableValue = _token == SNOWTokens.AVAX  ? _splitAmount : 0;
 
           // Trigger the allocator's `allocate` function.
           _split.allocator.allocate{value: _payableValue}(_data);
@@ -523,7 +523,7 @@ contract SNOWETHERC20SplitsPayer is SNOWETHERC20ProjectPayer, ReentrancyGuard, I
             );
         } else {
           // Transfer the ETH.
-          if (_token == SNOWTokens.ETH)
+          if (_token == SNOWTokens.AVAX )
             Address.sendValue(
               // Get a reference to the address receiving the tokens. If there's a beneficiary, send the funds directly to the beneficiary. Otherwise send to _defaultBeneficiary.
               _split.beneficiary != address(0) ? _split.beneficiary : payable(_defaultBeneficiary),

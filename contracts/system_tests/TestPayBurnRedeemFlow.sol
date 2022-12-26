@@ -68,8 +68,8 @@ contract TestPayBurnRedeemFlow is TestBaseWorkflow {
     _fundAccessConstraints.push(
       SNOWFundAccessConstraints({
         terminal: _terminal,
-        token: snowLibraries().ETHToken(),
-        distributionLimit: _targetInWei, // 10 ETH target
+        token: snowLibraries().AVAXToken(),
+        distributionLimit: _targetInWei, // 10 AVAX target
         overflowAllowance: 5 ether,
         distributionLimitCurrency: 1, // Currency = ETH
         overflowAllowanceCurrency: 1
@@ -124,7 +124,7 @@ contract TestPayBurnRedeemFlow is TestBaseWorkflow {
     uint256 _userTokenBalance = PRBMathUD60x18.mul(payAmountInWei, _weight);
     assertEq(_tokenStore.balanceOf(_userWallet, _projectId), _userTokenBalance);
 
-    // verify: ETH balance in terminal should be up to date
+    // verify: AVAX balance in terminal should be up to date
     uint256 _terminalBalanceInWei = payAmountInWei;
     assertEq(snowPaymentTerminalStore().balanceOf(_terminal, _projectId), _terminalBalanceInWei);
 
@@ -179,7 +179,7 @@ contract TestPayBurnRedeemFlow is TestBaseWorkflow {
     // verify: beneficiary should have a new balance of SNOWTokens
     assertEq(_tokenStore.balanceOf(_userWallet, _projectId), _userTokenBalance);
 
-    // verify: ETH balance in terminal should be up to date
+    // verify: AVAX balance in terminal should be up to date
     assertEq(
       snowPaymentTerminalStore().balanceOf(_terminal, _projectId),
       _terminalBalanceInWei - _reclaimAmtInWei

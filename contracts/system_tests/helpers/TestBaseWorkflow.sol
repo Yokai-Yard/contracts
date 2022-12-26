@@ -38,7 +38,7 @@ import './AccessSNOWLib.sol';
 
 import '@paulrberg/contracts/math/PRBMath.sol';
 
-// Base contract for Juicebox system tests.
+// Base contract for SnowCone system tests.
 //
 // Provides common functionality, such as deploying contracts on test setup.
 contract TestBaseWorkflow is DSTest {
@@ -212,7 +212,7 @@ contract TestBaseWorkflow is DSTest {
 
     // SNOWETHPaymentTerminal
     _snowETHPaymentTerminal = new SNOWETHPaymentTerminal(
-      _accessSNOWLib.ETH(),
+      _accessSNOWLib.AVAX(),
       _snowOperatorStore,
       _snowProjects,
       _snowDirectory,
@@ -232,8 +232,8 @@ contract TestBaseWorkflow is DSTest {
     // SNOWERC20PaymentTerminal
     _snowERC20PaymentTerminal = new SNOWERC20PaymentTerminal(
       _snowToken,
-      _accessSNOWLib.ETH(), // currency
-      _accessSNOWLib.ETH(), // base weight currency
+      _accessSNOWLib.AVAX(), // currency
+      _accessSNOWLib.AVAX(), // base weight currency
       1, // SNOWSplitsGroupe
       _snowOperatorStore,
       _snowProjects,

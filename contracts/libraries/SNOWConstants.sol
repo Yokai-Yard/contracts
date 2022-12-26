@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 /**
   @notice
-  Global constants used across Juicebox contracts.
+  Global constants used across SnowCone contracts.
 */
 library SNOWConstants {
   uint256 public constant MAX_RESERVED_RATE = 10000;

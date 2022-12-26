@@ -35,7 +35,7 @@ describe('SNOWSingleTokenPaymentTerminalStore::recordDistributionFor(...)', func
 
     const snowCurrenciesFactory = await ethers.getContractFactory('SNOWCurrencies');
     const snowCurrencies = await snowCurrenciesFactory.deploy();
-    const CURRENCY_ETH = await snowCurrencies.ETH();
+    const CURRENCY_AVAX = await snowCurrencies.AVAX();
     const CURRENCY_USD = await snowCurrencies.USD();
 
     const SNOWPaymentTerminalStoreFactory = await ethers.getContractFactory(
@@ -302,7 +302,7 @@ describe('SNOWSingleTokenPaymentTerminalStore::recordDistributionFor(...)', func
         PROJECT_ID,
         AMOUNT,
         CURRENCY_ETH,
-      ), // Use ETH instead of expected USD
+      ), // Use AVAX instead of expected USD
     ).to.be.revertedWith(errors.CURRENCY_MISMATCH);
   });
 
