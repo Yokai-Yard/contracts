@@ -1,7 +1,6 @@
 const { ethers } = require('hardhat');
 
 /**
- * Deploys a second version of many contracts for projects to migrate onto as a consequence of https://github.com/snowx-protocol/juice-contracts-v2/pull/268.
  *
  * Example usage:
  *

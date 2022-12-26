@@ -1,4 +1,4 @@
-name: juice-contracts-publish
+name: snow-contracts-publish
 on:
   push:
     branches:
@@ -42,4 +42,4 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          access: "public"
+          access: 'public'

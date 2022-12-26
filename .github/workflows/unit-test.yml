@@ -1,4 +1,4 @@
-name: juice-contracts-tests
+name: snow-contracts-tests
 on:
   pull_request:
     branches:
