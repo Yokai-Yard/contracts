@@ -20,7 +20,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
   const FEE_DISCOUNT = 500000000; // 50%
 
   const FUNDING_CYCLE_NUM = 1;
-  const JUICEBOX_PROJECT_ID = 1;
+  const SNOWCONE_PROJECT_ID = 1;
   const MEMO = 'test memo';
   const PROJECT_ID = 13;
   const WEIGHT = 1000;
@@ -105,7 +105,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
     const ETH_ADDRESS = await snowToken.AVAX();
 
     await mockJbDirectory.mock.primaryTerminalOf
-      .withArgs(JUICEBOX_PROJECT_ID, ETH_ADDRESS)
+      .withArgs(SNOWCONE_PROJECT_ID, ETH_ADDRESS)
       .returns(snowEthPaymentTerminal.address);
 
     await mockJbProjects.mock.ownerOf.returns(projectOwner.address);
@@ -334,7 +334,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
           decimals: 18,
           currency: CURRENCY_ETH,
         },
-        JUICEBOX_PROJECT_ID,
+        SNOWCONE_PROJECT_ID,
         CURRENCY_ETH,
         projectOwner.address,
         /* memo */ '',
@@ -425,7 +425,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
           decimals: 18,
           currency: CURRENCY_ETH,
         },
-        JUICEBOX_PROJECT_ID,
+        SNOWCONE_PROJECT_ID,
         CURRENCY_ETH,
         projectOwner.address,
         /* memo */ '',
@@ -512,7 +512,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
           decimals: 18,
           currency: CURRENCY_ETH,
         },
-        JUICEBOX_PROJECT_ID,
+        SNOWCONE_PROJECT_ID,
         CURRENCY_ETH,
         projectOwner.address,
         /* memo */ '',
@@ -599,7 +599,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
           decimals: 18,
           currency: CURRENCY_ETH,
         },
-        JUICEBOX_PROJECT_ID,
+        SNOWCONE_PROJECT_ID,
         CURRENCY_ETH,
         projectOwner.address,
         /* memo */ '',
@@ -694,7 +694,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
           decimals: 18,
           currency: CURRENCY_ETH,
         },
-        JUICEBOX_PROJECT_ID,
+        SNOWCONE_PROJECT_ID,
         CURRENCY_ETH,
         projectOwner.address,
         /* memo */ '',
@@ -802,7 +802,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
           decimals: 18,
           currency: CURRENCY_ETH,
         },
-        JUICEBOX_PROJECT_ID,
+        SNOWCONE_PROJECT_ID,
         CURRENCY_ETH,
         projectOwner.address,
         /* memo */ '',
@@ -914,7 +914,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::useAllowanceOf(...)', function ()
           decimals: 18,
           currency: CURRENCY_ETH,
         },
-        JUICEBOX_PROJECT_ID,
+        SNOWCONE_PROJECT_ID,
         CURRENCY_ETH,
         projectOwner.address,
         /* memo */ '',

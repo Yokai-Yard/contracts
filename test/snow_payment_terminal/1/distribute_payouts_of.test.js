@@ -596,7 +596,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::distributePayoutsOf(...)', functi
     ]);
   });
 
-  it('Should distribute payout minus fee and pay the fee via Juicebox DAO terminal, if using another terminal', async function () {
+  it('Should distribute payout minus fee and pay the fee via Snowcone DAO terminal, if using another terminal', async function () {
     const {
       projectOwner,
       caller,
@@ -1178,7 +1178,7 @@ describe('SNOWPayoutRedemptionPaymentTerminal::distributePayoutsOf(...)', functi
       );
   });
 
-  it('Should distribute payout minus fee and pay the fee via the same terminal, if using Juicebox DAO terminal', async function () {
+  it('Should distribute payout minus fee and pay the fee via the same terminal, if using Snowcone DAO terminal', async function () {
     const {
       projectOwner,
       caller,
